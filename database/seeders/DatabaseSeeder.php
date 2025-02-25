@@ -12,12 +12,11 @@ class DatabaseSeeder extends Seeder {
 	 * Seed the application's database.
 	 */
 	public function run(): void {
-		User::factory()->create( [ 
-			'name' => 'admin',
-			'email' => 'admin@gmail.com',
+		$this->call( [ 
+			UserSeeder::class,
+			RoomSeeder::class,
+			MessageSeeder::class,
 		] );
-		Room::insert( [ 
-			[ 'title' => 'inertia', 'slug' => str( 'inertia' )->slug(), 'created_at' => now(), 'updated_at' => now() ],
-		] );
+
 	}
 }

@@ -1,12 +1,10 @@
 <!-- eslint-disable vue/use-v-on-exact -->
 <template>
     <!-- Page Footer -->
-    <div>
-        {{ shift }}
-    </div>
+
     <footer
         id="page-footer"
-        class="fixed bottom-0 end-0 start-0 items-center border-t border-slate-200/75 bg-white lg:start-80"
+        class="fixed bottom-5 end-0 start-0 items-center border-t border-slate-200/75 bg-white lg:start-80"
     >
         <div
             class="container mx-auto flex h-20 items-center gap-2 px-4 lg:px-8 xl:max-w-7xl"

@@ -5,7 +5,7 @@
         <!-- Page Container -->
         <div
             id="page-container"
-            class="relative mx-auto h-screen min-w-[320px] bg-white lg:ms-80"
+            class="relative mx-auto mb-10 h-screen min-w-[320px] bg-white lg:ms-80"
         >
             <Nav />
             <Header />
