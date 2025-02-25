@@ -9,16 +9,17 @@ use Illuminate\Support\Collection;
 
 class UserSeeder extends Seeder {
 	/**
-	 * @var Collection<int, string> $names
+	 * @var array<int, string> $names
 	 */
-	protected Collection $names = collect( [ 'admin', 'eslam', 'selia', 'amina' ] );
+	protected array $names = [ 'admin', 'selia',];
+	// protected Collection $names = collect( [ 'admin', 'eslam', 'selia', 'amina' ] );
 	/**
 	 * Run the database seeds.
 	 */
 	public function run(): void {
-		$this->names->each(
+		collect( $this->names )->each(
 			fn( string $name ) =>
-			User::create( [ 'name' => $name, 'email' => "{$name}@gmail.com" ] )
+			User::factory()->create( [ 'name' => $name, 'email' => "{$name}@gmail.com" ] )
 		);
 	}
 }

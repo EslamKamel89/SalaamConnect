@@ -10,14 +10,14 @@ use Illuminate\Support\Collection;
 
 class RoomSeeder extends Seeder {
 	/**
-	 * @var Collection<int, string> $names
+	 * @var array<int, string> $names
 	 */
-	protected Collection $titles = collect( [ 'Inertia', 'Laravel', 'Vue', 'PHP' ] );
+	protected array $titles = [ 'Inertia', 'Laravel', 'Vue', 'PHP' ];
 	/**
 	 * Run the database seeds.
 	 */
 	public function run(): void {
-		$this->titles->each(
+		collect( $this->titles )->each(
 			fn( string $title ) =>
 			Room::create( [ 'title' => $title, 'slug' => str( $title )->slug() ] )
 		);
