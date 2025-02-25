@@ -10,7 +10,7 @@
             <Nav />
             <Header />
             <Messages />
-            <Footer />
+            <Footer @valid="(message) => pr(message)" />
         </div>
         <!-- END Page Container -->
     </div>
@@ -22,6 +22,7 @@ import Header from '@/Components/Chat/Header.vue';
 import Messages from '@/Components/Chat/Messages.vue';
 import Nav from '@/Components/Chat/Nav.vue';
 import { Room } from '@/types/types';
+import { pr } from '@/utils/pr';
 import { Head } from '@inertiajs/vue3';
 import { PropType } from 'vue';
 defineProps({
