@@ -2443,9 +2443,9 @@ namespace PHPSTORM_META {
         registerArgumentsSet('routes', 
 'debugbar.openhandler','debugbar.clockwork','debugbar.assets.css','debugbar.assets.js','debugbar.cache.delete',
 'debugbar.queries.explain','sanctum.csrf-cookie','dashboard',
-'profile.edit','profile.update','profile.destroy','register',
-'login','password.request','password.email','password.reset',
-'password.store','verification.notice','verification.verify','verification.send','password.confirm','password.update','logout','storage.local',);
+'profile.edit','profile.update','profile.destroy','rooms.show','register','login','password.request','password.email',
+'password.reset','password.store','verification.notice','verification.verify','verification.send',
+'password.confirm','password.update','logout','storage.local',);
         registerArgumentsSet('views', 
 'app','laravel-exceptions-renderer::components.card','laravel-exceptions-renderer::components.context','laravel-exceptions-renderer::components.editor','laravel-exceptions-renderer::components.header',
 'laravel-exceptions-renderer::components.icons.chevron-down','laravel-exceptions-renderer::components.icons.chevron-up','laravel-exceptions-renderer::components.icons.computer-desktop','laravel-exceptions-renderer::components.icons.moon','laravel-exceptions-renderer::components.icons.sun',
