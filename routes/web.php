@@ -29,7 +29,7 @@ Route::middleware( 'auth' )->group( function () {
 		->only( [ 'show' ] );
 	Route::resource( 'rooms.messages', MessageController::class)
 		->scoped( [ 'room' => 'slug' ] )
-		->only( [ 'show' ] );
+		->only( [ 'index' ] );
 } );
 
 require __DIR__ . '/auth.php';
