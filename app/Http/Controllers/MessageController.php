@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\RoomResource;
-use App\Models\Room;
 use Illuminate\Http\Request;
 
-class RoomController extends Controller {
-
+class MessageController extends Controller {
 	public function index() {
 	}
 
@@ -17,11 +14,9 @@ class RoomController extends Controller {
 	public function store( Request $request ) {
 	}
 
-	public function show( Room $room ) {
-		return inertia( 'Room/Show', [ 
-			'room' => RoomResource::make( $room )
-		] );
+	public function show( string $id ) {
 	}
+
 	public function edit( string $id ) {
 	}
 

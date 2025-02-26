@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Foundation\Application;
@@ -23,7 +24,12 @@ Route::middleware( 'auth' )->group( function () {
 	Route::get( '/profile', [ ProfileController::class, 'edit' ] )->name( 'profile.edit' );
 	Route::patch( '/profile', [ ProfileController::class, 'update' ] )->name( 'profile.update' );
 	Route::delete( '/profile', [ ProfileController::class, 'destroy' ] )->name( 'profile.destroy' );
-	Route::get( 'rooms/{room:slug}', [ RoomController::class, 'show' ] )->name( 'rooms.show' );
+	Route::resource( 'rooms', RoomController::class)
+		->scoped( [ 'room' => 'slug' ] )
+		->only( [ 'show' ] );
+	Route::resource( 'rooms.messages', MessageController::class)
+		->scoped( [ 'room' => 'slug' ] )
+		->only( [ 'show' ] );
 } );
 
 require __DIR__ . '/auth.php';

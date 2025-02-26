@@ -21,11 +21,14 @@ import Footer from '@/Components/Chat/Footer.vue';
 import Header from '@/Components/Chat/Header.vue';
 import Messages from '@/Components/Chat/Messages.vue';
 import Nav from '@/Components/Chat/Nav.vue';
+import { useMessageStore } from '@/Store/useMessageStore';
 import { Room } from '@/types/types';
 import { pr } from '@/utils/pr';
 import { Head } from '@inertiajs/vue3';
+import { storeToRefs } from 'pinia';
 import { PropType } from 'vue';
-defineProps({
+const props = defineProps({
     room: { type: Object as PropType<Room>, required: true },
 });
+const { messages, page } = storeToRefs(useMessageStore());
 </script>
