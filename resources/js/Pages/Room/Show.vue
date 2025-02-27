@@ -9,6 +9,7 @@
         >
             <NavComp />
             <HeaderComp />
+            {{ messageStore.messages }}
             <Messages />
             <Footer @valid="(message) => pr(message)" />
         </div>
@@ -21,6 +22,7 @@ import Footer from '@/Components/Chat/Footer.vue';
 import HeaderComp from '@/Components/Chat/HeaderComp.vue';
 import Messages from '@/Components/Chat/Messages.vue';
 import NavComp from '@/Components/Chat/NavComp.vue';
+import { useMessageStore } from '@/Store/useMessageStore';
 import { Room } from '@/types/types';
 import { pr } from '@/utils/pr';
 import { Head } from '@inertiajs/vue3';
@@ -29,4 +31,6 @@ const props = defineProps({
     room: { type: Object as PropType<Room>, required: true },
 });
 // const { messages, page } = storeToRefs(useMessageStore());
+const messageStore = useMessageStore();
+messageStore.fetchMessages(props.room.slug, 1);
 </script>

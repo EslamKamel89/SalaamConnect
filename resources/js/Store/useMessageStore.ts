@@ -1,4 +1,5 @@
 import { Message, Pagination } from '@/types/types';
+import { baseUrl } from '@/utils/constants';
 import axios from 'axios';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
@@ -12,7 +13,7 @@ export const useMessageStore = defineStore('messages', () => {
     const fetchMessages = async (roomSlug: string, page: number = 1) => {
         loading.value = true;
         const response = await axios.get(
-            `rooms/${roomSlug}/messages?page=${page}`,
+            `${baseUrl}/rooms/${roomSlug}/messages?page=${page}`,
         );
         messagesWithMeta.value = response.data;
         messages.value = [
