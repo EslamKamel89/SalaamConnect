@@ -23,6 +23,7 @@ export const useMessageStore = defineStore('messages', () => {
         currentPage.value = messagesWithMeta.value?.meta.current_page ?? 1;
         loading.value = false;
     };
+
     return {
         currentPage,
         messages,

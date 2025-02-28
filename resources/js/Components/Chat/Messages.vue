@@ -20,10 +20,12 @@
                         {{ message.user.name }}
                     </p>
                     <div
-                        class="rounded-2xl rounded-br-none bg-gray-100 px-5 py-3"
+                        class="rounded-2xl bg-gray-100 px-5 py-3"
                         :class="{
-                            'bg-gray-100': authUser.id !== message.user_id,
-                            'bg-indigo-600': authUser.id === message.user_id,
+                            'rounded-tl-none bg-gray-100':
+                                authUser.id !== message.user_id,
+                            'rounded-br-none bg-indigo-600':
+                                authUser.id === message.user_id,
                         }"
                     >
                         <p
@@ -42,22 +44,8 @@
                     </p>
                 </div>
                 <!-- END  Messages Received -->
-
-                <!-- Messages Sent -->
-                <!-- <div
-                    class="ms-auto flex w-5/6 flex-col items-end gap-2 lg:w-2/3 xl:w-1/3"
-                >
-                    <div
-                        class="rounded-2xl rounded-tl-none bg-indigo-600 px-5 py-3"
-                    >
-                        <p class="font-semibold text-white">Message Content</p>
-                    </div>
-                    <p class="text-right text-xs font-medium text-slate-500">
-                        16:25 am
-                    </p>
-                </div> -->
-                <!-- END Messages Sent -->
             </div>
+            <div ref="target"></div>
         </div>
     </main>
     <!-- END Page Content -->
@@ -65,9 +53,24 @@
 
 <script setup lang="ts">
 import { useMessageStore } from '@/Store/useMessageStore';
+import { pr } from '@/utils/pr';
 import { usePage } from '@inertiajs/vue3';
+import { useIntersectionObserver } from '@vueuse/core';
 import { storeToRefs } from 'pinia';
+import { shallowRef, useTemplateRef, watch } from 'vue';
 
 const { messages } = storeToRefs(useMessageStore());
 const authUser = usePage().props.auth.user;
+
+const target = useTemplateRef<HTMLDivElement>('target');
+const targetIsVisible = shallowRef<boolean | null>(null);
+
+const { stop } = useIntersectionObserver(target, ([entry], observerElement) => {
+    targetIsVisible.value = entry?.isIntersecting || false;
+});
+watch(targetIsVisible, (newValue, oldValue) => {
+    if (oldValue !== null && newValue) {
+        pr(targetIsVisible.value);
+    }
+});
 </script>
