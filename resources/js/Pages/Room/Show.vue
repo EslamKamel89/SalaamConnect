@@ -10,7 +10,7 @@
             <!-- <NavComp /> -->
             <HeaderComp />
             <Messages :slug="room.slug" />
-            <Footer @valid="(message) => pr(message)" />
+            <Footer @valid="storeMessage" />
         </div>
         <!-- END Page Container -->
     </div>
@@ -22,13 +22,16 @@ import HeaderComp from '@/Components/Chat/HeaderComp.vue';
 import Messages from '@/Components/Chat/Messages.vue';
 import { useMessageStore } from '@/Store/useMessageStore';
 import { Room } from '@/types/types';
-import { pr } from '@/utils/pr';
 import { Head } from '@inertiajs/vue3';
 import { onMounted, PropType } from 'vue';
 const props = defineProps({
     room: { type: Object as PropType<Room>, required: true },
 });
 const messageStore = useMessageStore();
+
+const storeMessage = (message: string) => {
+    messageStore.saveMessage(props.room.slug, message);
+};
 onMounted(() => {
     messageStore.fetchMessages(props.room.slug, 1);
 });

@@ -1,5 +1,5 @@
 import { Message, Pagination } from '@/types/types';
-import { baseUrl } from '@/utils/constants';
+import { pr } from '@/utils/pr';
 import axios from 'axios';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
@@ -13,8 +13,12 @@ export const useMessageStore = defineStore('messages', () => {
     const isInitiaMessageslLoaded = ref<boolean>(false);
     const fetchMessages = async (roomSlug: string, page: number = 1) => {
         loading.value = true;
+        // const response = await axios.get(
+        //     `${baseUrl}/rooms/${roomSlug}/messages?page=${page}`,
+        // );
         const response = await axios.get(
-            `${baseUrl}/rooms/${roomSlug}/messages?page=${page}`,
+            route('rooms.messages.index', { room: roomSlug }),
+            { params: { page } },
         );
         messagesWithMeta.value = response.data;
         messages.value = [
@@ -28,6 +32,18 @@ export const useMessageStore = defineStore('messages', () => {
     const fetchPreviousMessages = async (slug: string) => {
         await fetchMessages(slug, currentPage.value + 1);
     };
+    const saveMessage = async (slug: string, message: string) => {
+        pr('save messages is called');
+        const response = await axios.post(
+            route('rooms.messages.store', { room: slug }),
+            {
+                slug,
+                message,
+            },
+        );
+        pr(response.data, 'response.data');
+        messages.value = [response.data, ...messages.value];
+    };
     return {
         currentPage,
         messages,
@@ -37,5 +53,6 @@ export const useMessageStore = defineStore('messages', () => {
         loading,
         error,
         isInitiaMessageslLoaded,
+        saveMessage,
     };
 });
