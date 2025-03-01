@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreMessageRequest;
 use App\Http\Resources\MessageResource;
 use App\Models\Room;
 use App\Models\Message;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller {
+	// use \App\Tratis\Pr;
 	public function index( Room $room ) {
 		/** @var Collection<int , Message> $messages*/
 		$messages = $room->messages()
@@ -22,15 +24,13 @@ class MessageController extends Controller {
 	public function create() {
 	}
 
-	public function store( Request $request ) {
-		info( $request->all() );
-		$message = new Message();
-		$message->id = 9999999999;
-		$message->room_id = 1;
-		$message->user_id = auth()->id();
-		$message->content = $request->message;
-		$message->created_at = now();
-		$message->updated_at = now();
+	public function store( StoreMessageRequest $request ) {
+		$room = Room::where( 'slug', $request->slug )->first();
+		$message = Message::create( [ 
+			'user_id' => auth()->id(),
+			'room_id' => $room->id,
+			'content' => $request->message,
+		] );
 		return MessageResource::make( $message );
 	}
 
