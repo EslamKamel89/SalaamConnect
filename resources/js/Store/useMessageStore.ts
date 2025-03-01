@@ -10,6 +10,7 @@ export const useMessageStore = defineStore('messages', () => {
     const messages = ref<Message[]>([]);
     const loading = ref<boolean>(false);
     const error = ref<string | null>(null);
+    const isInitiaMessageslLoaded = ref<boolean>(false);
     const fetchMessages = async (roomSlug: string, page: number = 1) => {
         loading.value = true;
         const response = await axios.get(
@@ -22,14 +23,19 @@ export const useMessageStore = defineStore('messages', () => {
         ];
         currentPage.value = messagesWithMeta.value?.meta.current_page ?? 1;
         loading.value = false;
+        isInitiaMessageslLoaded.value = true;
     };
-
+    const fetchPreviousMessages = async (slug: string) => {
+        await fetchMessages(slug, currentPage.value + 1);
+    };
     return {
         currentPage,
         messages,
         fetchMessages,
+        fetchPreviousMessages,
         messagesWithMeta,
         loading,
         error,
+        isInitiaMessageslLoaded,
     };
 });

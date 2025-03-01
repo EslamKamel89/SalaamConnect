@@ -4,7 +4,11 @@
         <div
             class="container mx-auto flex h-full flex-col-reverse space-y-6 overflow-y-auto px-4 py-24 lg:p-8 lg:pb-28 xl:max-w-7xl"
         >
-            <div class="w-full" v-for="message in messages" :key="message.id">
+            <div
+                class="w-full"
+                v-for="message in messageStore.messages"
+                :key="message.id"
+            >
                 <!-- Messages Received -->
                 <div
                     class="flex !w-full w-5/6 flex-col gap-2 lg:w-2/3 xl:w-1/3"
@@ -45,7 +49,10 @@
                 </div>
                 <!-- END  Messages Received -->
             </div>
-            <div ref="target"></div>
+            <div
+                ref="target"
+                class="h-32 w-32 translate-y-20 bg-transparent"
+            ></div>
         </div>
     </main>
     <!-- END Page Content -->
@@ -53,13 +60,15 @@
 
 <script setup lang="ts">
 import { useMessageStore } from '@/Store/useMessageStore';
-import { pr } from '@/utils/pr';
 import { usePage } from '@inertiajs/vue3';
 import { useIntersectionObserver } from '@vueuse/core';
-import { storeToRefs } from 'pinia';
-import { shallowRef, useTemplateRef, watch } from 'vue';
+import { onUnmounted, shallowRef, useTemplateRef, watch } from 'vue';
 
-const { messages } = storeToRefs(useMessageStore());
+const props = defineProps<{
+    slug: string;
+}>();
+
+const messageStore = useMessageStore();
 const authUser = usePage().props.auth.user;
 
 const target = useTemplateRef<HTMLDivElement>('target');
@@ -69,8 +78,11 @@ const { stop } = useIntersectionObserver(target, ([entry], observerElement) => {
     targetIsVisible.value = entry?.isIntersecting || false;
 });
 watch(targetIsVisible, (newValue, oldValue) => {
-    if (oldValue !== null && newValue) {
-        pr(targetIsVisible.value);
+    if (oldValue !== null && newValue && messageStore.isInitiaMessageslLoaded) {
+        messageStore.fetchPreviousMessages(props.slug);
     }
+});
+onUnmounted(() => {
+    stop();
 });
 </script>

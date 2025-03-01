@@ -9,7 +9,7 @@
         >
             <!-- <NavComp /> -->
             <HeaderComp />
-            <Messages />
+            <Messages :slug="room.slug" />
             <Footer @valid="(message) => pr(message)" />
         </div>
         <!-- END Page Container -->
