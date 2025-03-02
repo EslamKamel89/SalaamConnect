@@ -2,14 +2,13 @@
     <!-- Page Content -->
     <main id="page-content" class="absolute inset-0">
         <div
-            class="container mx-auto flex h-full flex-col-reverse space-y-6 overflow-y-auto px-4 py-24 lg:p-8 lg:pb-28 xl:max-w-7xl"
+            class="container mx-auto flex h-full flex-col-reverse space-y-6 space-y-reverse overflow-y-auto px-4 py-24 lg:p-8 lg:pb-28 xl:max-w-7xl"
         >
             <div
                 class="w-full"
                 v-for="message in messageStore.messages"
                 :key="message.id"
             >
-                <!-- Messages Received -->
                 <div
                     class="flex !w-full w-5/6 flex-col gap-2 lg:w-2/3 xl:w-1/3"
                     :class="{
@@ -47,7 +46,6 @@
                         {{ message.created_at }}
                     </p>
                 </div>
-                <!-- END  Messages Received -->
             </div>
             <div
                 ref="target"
