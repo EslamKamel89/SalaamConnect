@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Http\Resources\MessageResource;
 use App\Models\Message;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -28,7 +29,7 @@ class MessageCreated implements ShouldBroadcastNow {
 	 * @return array<string, mixed>
 	 */
 	public function broadcastWith(): array {
-		return [ 'id' => $this->message->id ];
+		return MessageResource::make( $this->message )->toArray( request() );
 	}
 
 	/**

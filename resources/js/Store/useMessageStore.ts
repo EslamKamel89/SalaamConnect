@@ -1,8 +1,9 @@
-import { Message, Pagination } from '@/types/types';
+import { Pagination } from '@/types/types';
 import { pr } from '@/utils/pr';
 import axios from 'axios';
 import { defineStore } from 'pinia';
 import { ref } from 'vue';
+import { Message } from './../types/types.d';
 
 export const useMessageStore = defineStore('messages', () => {
     const currentPage = ref(1);
@@ -44,6 +45,10 @@ export const useMessageStore = defineStore('messages', () => {
         pr(response.data, 'response.data');
         messages.value = [response.data, ...messages.value];
     };
+    const pushMessage = (message: Message) => {
+        messages.value.pop();
+        messages.value = [message, ...messages.value];
+    };
     return {
         currentPage,
         messages,
@@ -54,5 +59,6 @@ export const useMessageStore = defineStore('messages', () => {
         error,
         isInitiaMessageslLoaded,
         saveMessage,
+        pushMessage,
     };
 });

@@ -22,7 +22,7 @@ import HeaderComp from '@/Components/Chat/HeaderComp.vue';
 import Messages from '@/Components/Chat/Messages.vue';
 import { echo } from '@/echo';
 import { useMessageStore } from '@/Store/useMessageStore';
-import { Room } from '@/types/types';
+import { Message, Room } from '@/types/types';
 import { pr } from '@/utils/pr';
 import { Head } from '@inertiajs/vue3';
 import { onMounted, PropType } from 'vue';
@@ -39,7 +39,8 @@ onMounted(() => {
     messageStore.fetchMessages(props.room.slug, 1);
 });
 const channel = echo.join(`room.${props.room.id}`);
-channel.listen('MessageCreated', ({ id }: { id: number }) => {
-    pr(id, 'MessageCreated');
+channel.listen('MessageCreated', (newMessage: Message) => {
+    pr(newMessage, 'MessageCreated');
+    messageStore.pushMessage(newMessage);
 });
 </script>
