@@ -8,5 +8,5 @@ Broadcast::channel( 'App.Models.User.{id}', function ($user, $id) {
 } );
 
 Broadcast::channel( 'room.{roomId}', function (?User $user, int $roomId) {
-	return $user->only( [ 'id', 'name', 'email' ] );
+	return [ ...collect( $user->only( [ 'id', 'name', 'email' ] ) ), 'avatar' => $user->userAvatar() ];
 } );

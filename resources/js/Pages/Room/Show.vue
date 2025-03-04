@@ -7,7 +7,7 @@
             id="page-container"
             class="relative mx-auto mb-10 h-screen min-w-[320px] bg-white lg:ms-80"
         >
-            <!-- <NavComp /> -->
+            <NavComp />
             <HeaderComp />
             <Messages :slug="room.slug" />
             <Footer @valid="storeMessage" />
@@ -20,6 +20,7 @@
 import Footer from '@/Components/Chat/Footer.vue';
 import HeaderComp from '@/Components/Chat/HeaderComp.vue';
 import Messages from '@/Components/Chat/Messages.vue';
+import NavComp from '@/Components/Chat/NavComp.vue';
 import { echo } from '@/echo';
 import { useMessageStore } from '@/Store/useMessageStore';
 import { useUsersStore } from '@/Store/useUsersStore';

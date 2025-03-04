@@ -63,12 +63,14 @@
         <!-- Main Navigation -->
         <div class="grow space-y-2 ps-4 pt-2">
             <a
+                v-for="user in users"
+                :key="user.id"
                 href="javascript:void(0)"
                 class="flex items-center gap-3 border-indigo-500 bg-white px-3 py-4 shadow-sm ltr:rounded-l ltr:border-l-4 rtl:rounded-r rtl:border-r-4"
             >
                 <div class="relative flex-none">
                     <img
-                        src="https://images.unsplash.com/photo-1567186937675-a5131c8a89ea?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=160&ixid=MXwxfDB8MXxhbGx8fHx8fHx8fA&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=160"
+                        :src="user.avatar"
                         alt="User Avatar"
                         class="h-11 w-11 rounded-full border-2 border-white/50"
                     />
@@ -78,66 +80,14 @@
                 </div>
                 <div class="grow">
                     <p class="mb-0.5 line-clamp-1 text-sm font-bold">
-                        John Smith
+                        {{ user.name }}
                     </p>
                     <p class="line-clamp-1 text-xs font-medium text-slate-500">
-                        j.smith@example.com
+                        {{ user.email }}
                     </p>
                 </div>
                 <div class="flex-none self-start">
                     <p class="text-xs font-medium text-slate-400">Now</p>
-                </div>
-            </a>
-            <a
-                href="javascript:void(0)"
-                class="flex items-center gap-3 border-transparent px-3 py-4 hover:border-indigo-300 hover:bg-white/50 active:border-indigo-500 active:bg-white active:shadow-sm ltr:rounded-l ltr:border-l-4 rtl:rounded-r rtl:border-r-4"
-            >
-                <div class="relative flex-none">
-                    <img
-                        src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=160&ixid=MXwxfDB8MXxhbGx8fHx8fHx8fA&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=160"
-                        alt="User Avatar"
-                        class="h-11 w-11 rounded-full border-2 border-white/50"
-                    />
-                    <span
-                        class="absolute bottom-0 end-0 h-3 w-3 rounded-full border-2 border-white bg-amber-500 shadow-sm"
-                    ></span>
-                </div>
-                <div class="grow">
-                    <p class="mb-0.5 line-clamp-1 text-sm font-bold">
-                        Gus Taylor
-                    </p>
-                    <p class="line-clamp-1 text-xs font-medium text-slate-500">
-                        g.taylor@example.com
-                    </p>
-                </div>
-                <div class="flex-none self-start">
-                    <p class="text-xs font-medium text-slate-400">16:25</p>
-                </div>
-            </a>
-            <a
-                href="javascript:void(0)"
-                class="flex items-center gap-3 border-transparent px-3 py-4 hover:border-indigo-300 hover:bg-white/50 active:border-indigo-500 active:bg-white active:shadow-sm ltr:rounded-l ltr:border-l-4 rtl:rounded-r rtl:border-r-4"
-            >
-                <div class="relative flex-none">
-                    <img
-                        src="https://images.unsplash.com/photo-1514846326710-096e4a8035e0?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=160&ixid=MnwxfDB8MXxyYW5kb218MHx8fHx8fHx8MTY2MjYzODYzMg&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=160"
-                        alt="User Avatar"
-                        class="h-11 w-11 rounded-full border-2 border-white/50"
-                    />
-                    <span
-                        class="absolute bottom-0 end-0 h-3 w-3 rounded-full border-2 border-white bg-rose-500 shadow-sm"
-                    ></span>
-                </div>
-                <div class="grow">
-                    <p class="mb-0.5 line-clamp-1 text-sm font-bold">
-                        Sue Keller
-                    </p>
-                    <p class="line-clamp-1 text-xs font-medium text-slate-500">
-                        s.keller@example.com
-                    </p>
-                </div>
-                <div class="flex-none self-start">
-                    <p class="text-xs font-medium text-slate-400">March 15</p>
                 </div>
             </a>
         </div>
@@ -171,4 +121,10 @@
     <!-- Page Sidebar -->
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUsersStore } from '@/Store/useUsersStore';
+import { storeToRefs } from 'pinia';
+
+const usersStore = useUsersStore();
+const { users } = storeToRefs(usersStore);
+</script>

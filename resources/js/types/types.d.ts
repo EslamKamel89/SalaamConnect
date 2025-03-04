@@ -15,6 +15,8 @@ export type User = {
     name: string;
     email: string;
     created_at: string;
+    email_verified_at?: string;
+    avatar?: string;
 };
 
 export type Message = {

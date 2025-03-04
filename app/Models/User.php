@@ -89,4 +89,8 @@ class User extends Authenticatable {
 			relatedPivotKey: 'room_id',
 		)->as( 'message' )->withPivot( [ 'content' ] )->withTimestamps();
 	}
+
+	public function userAvatar() {
+		return "https://ui-avatars.com/api/?background=0D8ABC&color=fff&name={$this->name}";
+	}
 }
