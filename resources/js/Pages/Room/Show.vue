@@ -22,6 +22,7 @@ import HeaderComp from '@/Components/Chat/HeaderComp.vue';
 import Messages from '@/Components/Chat/Messages.vue';
 import { echo } from '@/echo';
 import { useMessageStore } from '@/Store/useMessageStore';
+import { useUsersStore } from '@/Store/useUsersStore';
 import { Message, Room, User } from '@/types/types';
 import { pr } from '@/utils/pr';
 import { Head } from '@inertiajs/vue3';
@@ -31,7 +32,7 @@ const props = defineProps({
     room: { type: Object as PropType<Room>, required: true },
 });
 const messageStore = useMessageStore();
-
+const usersStore = useUsersStore();
 const storeMessage = (message: string) => {
     messageStore.saveMessage(props.room.slug, message);
 };
@@ -46,6 +47,7 @@ channel
     })
     .here((users: User[]) => {
         pr(users, 'here');
+        usersStore.setUsers(users);
     })
     .joining((user: User) => {
         pr(user, 'joining');
