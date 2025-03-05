@@ -9,10 +9,7 @@
         >
             <NavComp />
             <Messages :slug="room.slug" />
-            <Footer
-                @valid="storeMessage"
-                @typing="(typing: boolean) => pr('typing: ' + typing)"
-            />
+            <Footer @valid="storeMessage" @typing="whisperTyping" />
             <HeaderComp />
         </div>
         <!-- END Page Container -->
@@ -29,8 +26,8 @@ import { useMessageStore } from '@/Store/useMessageStore';
 import { useUsersStore } from '@/Store/useUsersStore';
 import { Message, Room, User } from '@/types/types';
 import { pr } from '@/utils/pr';
-import { Head } from '@inertiajs/vue3';
-import { onMounted, PropType } from 'vue';
+import { Head, usePage } from '@inertiajs/vue3';
+import { onMounted, onUnmounted, PropType } from 'vue';
 
 const props = defineProps({
     room: { type: Object as PropType<Room>, required: true },
@@ -60,5 +57,20 @@ channel
     .leaving((user: User) => {
         pr(user, 'leaving');
         usersStore.removeUser(user);
-    });
+    })
+    .listenForWhisper(
+        'typing',
+        (data: { isTyping: boolean; userId: number }) => {
+            pr(data, 'typing event recieved');
+            usersStore.setTyping(data.userId, data.isTyping);
+        },
+    );
+const page = usePage();
+const whisperTyping = (isTyping: boolean) => {
+    channel.whisper('typing', { isTyping, userId: page.props.auth.user.id });
+};
+
+onUnmounted(() => {
+    echo.leave(channel.name);
+});
 </script>

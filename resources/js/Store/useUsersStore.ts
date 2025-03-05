@@ -15,11 +15,20 @@ export const useUsersStore = defineStore('users', () => {
     const removeUser = (user: User) => {
         users.value = users.value.filter((u) => u.id !== user.id);
     };
+    const setTyping = (userId: number, isTyping: boolean) => {
+        users.value.forEach((user: User) => {
+            if (user.id === userId) {
+                user.isTyping = isTyping;
+            }
+        });
+        users.value = [...users.value];
+    };
     return {
         users,
         setUsers,
         count,
         addUser,
         removeUser,
+        setTyping,
     };
 });

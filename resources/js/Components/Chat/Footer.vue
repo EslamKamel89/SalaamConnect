@@ -37,6 +37,7 @@ const handleEnter = () => {
     if (message.value.length) {
         emit('valid', message.value);
         message.value = '';
+        handleFinishTyping();
     }
 };
 const emit = defineEmits<{

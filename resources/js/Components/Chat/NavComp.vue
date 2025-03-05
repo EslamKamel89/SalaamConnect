@@ -90,6 +90,12 @@
                     <p class="line-clamp-1 text-xs font-medium text-slate-500">
                         {{ user.email }}
                     </p>
+                    <p
+                        v-if="user.isTyping"
+                        class="mt-2 line-clamp-1 text-xs font-medium text-slate-500"
+                    >
+                        Typing...
+                    </p>
                 </div>
                 <div class="flex-none self-start">
                     <p class="text-xs font-medium text-slate-400">Now</p>
@@ -100,8 +106,8 @@
 
         <!-- Sub Navigation -->
         <div class="flex-none space-y-2 px-4 pb-2">
-            <a
-                href="javascript:void(0)"
+            <Link
+                :href="route('dashboard')"
                 class="flex items-center gap-3 rounded border-l-4 border-transparent px-3 py-4 hover:border-indigo-300 hover:bg-white/50 active:border-indigo-500 active:bg-white active:shadow-sm"
             >
                 <div class="relative flex-none">
@@ -119,7 +125,7 @@
                         @john.doe
                     </p>
                 </div>
-            </a>
+            </Link>
         </div>
         <!-- END Sub Navigation -->
     </nav>
@@ -128,6 +134,7 @@
 
 <script setup lang="ts">
 import { useUsersStore } from '@/Store/useUsersStore';
+import { Link } from '@inertiajs/vue3';
 import { storeToRefs } from 'pinia';
 
 const usersStore = useUsersStore();
