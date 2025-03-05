@@ -8,9 +8,12 @@
             class="relative mx-auto mb-10 h-screen min-w-[320px] bg-white lg:ms-80"
         >
             <NavComp />
-            <HeaderComp />
             <Messages :slug="room.slug" />
-            <Footer @valid="storeMessage" />
+            <Footer
+                @valid="storeMessage"
+                @typing="(typing: boolean) => pr('typing: ' + typing)"
+            />
+            <HeaderComp />
         </div>
         <!-- END Page Container -->
     </div>

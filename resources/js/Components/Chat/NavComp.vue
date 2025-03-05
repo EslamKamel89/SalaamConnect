@@ -1,5 +1,10 @@
 <template>
     <!-- Page Sidebar -->
+    <!-- <nav
+        id="page-sidebar"
+        class="fixed bottom-0 start-0 top-0 z-50 flex h-full w-80 flex-col overflow-auto bg-slate-200 transition-transform duration-500 ease-out lg:translate-x-0 lg:shadow-none ltr:-translate-x-full ltr:lg:translate-x-0 rtl:translate-x-full rtl:lg:translate-x-0"
+        aria-label="Main Sidebar Navigation"
+    ></nav> -->
     <nav
         id="page-sidebar"
         class="fixed bottom-0 start-0 top-0 z-50 flex h-full w-80 flex-col overflow-auto bg-slate-200 transition-transform duration-500 ease-out lg:translate-x-0 lg:shadow-none ltr:-translate-x-full ltr:lg:translate-x-0 rtl:translate-x-full rtl:lg:translate-x-0"
