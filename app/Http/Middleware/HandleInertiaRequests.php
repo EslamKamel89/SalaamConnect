@@ -29,7 +29,7 @@ class HandleInertiaRequests extends Middleware {
 		return [ 
 			...parent::share( $request ),
 			'auth' => [ 
-				'user' => [ ...collect( $request->user() ), 'avatar' => $request->user()->userAvatar() ],
+				'user' => [ ...collect( $request->user() ), 'avatar' => $request->user()?->userAvatar() ],
 			],
 		];
 	}

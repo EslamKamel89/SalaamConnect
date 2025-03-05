@@ -52,8 +52,10 @@ channel
     })
     .joining((user: User) => {
         pr(user, 'joining');
+        usersStore.addUser(user);
     })
     .leaving((user: User) => {
         pr(user, 'leaving');
+        usersStore.removeUser(user);
     });
 </script>
